@@ -2,4 +2,4 @@ language: swift
 notifications:
   email: false
 script:
-  - swiftc ./Sources/Onitama/projet-swift.swift
+  - swiftc ./Sources/Onitama/projet-swift.swift ./Sources/Onitama/Carte.swift ./Sources/Onitama/Joueur.swift
