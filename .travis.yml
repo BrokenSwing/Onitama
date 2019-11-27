@@ -1,0 +1,5 @@
+language: swift
+notifications:
+  email: false
+script:
+  - swiftc ./Sources/Onitama/projet-swift.swift
