@@ -10,7 +10,7 @@ class Affichage {
 		Crée une interface utilisateur pour le controlleur donné.
 
 		- parameters:
-			- onimata: Le controlleur du jeu
+			- onitama: Le controlleur du jeu
 	*/
 	init(onitama: Onitama) {
 		self.onitama = onitama
@@ -55,7 +55,7 @@ class Affichage {
 			var numCarteChoisie: Int = self.faireChoixCarte()
 			var (carte1, carte2) = self.joueurActuel.cartes
 
-			let mvtCarte1 = self.onimata.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte1)
+			let mvtCarte1 = self.onitama.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte1)
 			let mvtCarte2 = self.onitama.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte2)
 
 			// Le joueur peut bouger un pion
@@ -72,14 +72,14 @@ class Affichage {
 				let nx = px + dx
 				let ny = px + dy
 
-				if self.onimata.plateau.caseOccupe(x: nx,  y: ny) {
-					self.onimata.plateau.getPionA(x: nx, y: ny).tuer()
+				if self.onitama.plateau.caseOccupe(x: nx,  y: ny) {
+					self.onitama.plateau.getPionA(x: nx, y: ny).tuer()
 				}
-				self.onimata.plateau.bougerPion(pion: choixPion!, x: nx, y: ny)
+				self.onitama.plateau.bougerPion(pion: choixPion!, x: nx, y: ny)
 			}
 
-			let carteFlot = self.onimata.carteFlottante
-			self.onimata.carteFlottante = numCarteChoisie == 1 ? carte1 : carte2
+			let carteFlot = self.onitama.carteFlottante
+			self.onitama.carteFlottante = numCarteChoisie == 1 ? carte1 : carte2
 			self.joueurActuel.cartes = (numCarteChoisie == 1 ? carte2 : carte1, carteFlot)
 
 			self.changerDeJoueur()
@@ -89,7 +89,7 @@ class Affichage {
 	}
 
 	private func faireChoixMouvement(carte: Carte, pion: Pion) -> (Int, Int) {
-		var mvtPossibles = self.onimata.plateau.mouvementsPermisPion(par: pion, enUtilisant: carte)
+		var mvtPossibles = self.onitama.plateau.mouvementsPermisPion(par: pion, enUtilisant: carte)
 
 		for (index, el) in 1 ..< mvtPossibles.enumerated() {
 			let (x, y) = el
@@ -97,11 +97,11 @@ class Affichage {
 		}
 		print("Choisissez le mouvement que vous voulez opérer :")
 
-		guard let choixMoveStr = readLine() {
+		guard let choixMoveStr = readLine() else {
 			return faireChoixMouvement(carte: carte, pion: Pion)
 		}
 
-		guard let choixMove: Int = Int(choixMoveStr) {
+		guard let choixMove: Int = Int(choixMoveStr) else {
 			print("Ceci n'est pas entier. Ré-essayez !")
 			return faireChoixMouvement(carte: carte, pion: Pion)
 		}
@@ -157,7 +157,7 @@ class Affichage {
 			return nil
 		}
 
-		var mvtPossibles = self.onimata.plateau.mouvementsPermisPion(par: Pion, enUtilisant: carte)
+		var mvtPossibles = self.onitama.plateau.mouvementsPermisPion(par: Pion, enUtilisant: carte)
 		if mvtPossibles.isEmpty {
 			print("Vous ne pouvez pas effectuer de mouvements avec ce pion. Ré-essayez avec un autre pion")
 			return nil
@@ -170,12 +170,12 @@ class Affichage {
 	private func faireChoixCarte() -> Int {
 
 		print("La carte flottante :")
-		self.afficherCarte(self.onimata.carteFlottante)
+		self.afficherCarte(self.onitama.carteFlottante)
 
 		print("Vos cartes :")
 		let (carte1, carte2) = self.joueurActuel.cartes
 
-		let mvtCarte1 = self.onimata.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte1)
+		let mvtCarte1 = self.onitama.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte1)
 		let mvtCarte2 = self.onitama.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte2)
 		let aucunMvtPossible = mvtCarte1.isEmpty && mvtCarte2.isEmpty
 
