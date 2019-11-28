@@ -7,7 +7,7 @@ protocol Pion {
     /**
         Indique si le pion est un maître.
 
-        - returns: true si le pion est un maitre, sinon false
+        - returns: `true` si le pion est un maitre, sinon `false`
     */
 	var estMaitre: Bool { get }
 
@@ -22,7 +22,7 @@ protocol Pion {
         Indique si pion est toujours en vie. C'est à dire qu'il ne s'est pas encore
         manger par un autre pion.
 
-        - returns: true si le pion est en vie, sinon false
+        - returns: `true` si le pion est en vie, sinon `false`
     */
 	var enVie: Bool { get }
 
@@ -43,11 +43,11 @@ protocol Pion {
 
     /**
         Tue le pion.
-        Si le pion n'est pas en vie (self.enVie == false), alors cette méthode ne fait rien.
-        Si le pion est en vie (self.enVie == true), alors cette méthode fait le nécessaire pour que les
-        appels suivant à self.enVie renvoient false.
+        Si le pion n'est pas en vie (`self.enVie == false`), alors cette méthode ne fait rien.
+        Si le pion est en vie (`self.enVie == true`), alors cette méthode fait le nécessaire pour que les
+        appels suivant à `self.enVie` renvoient `false`.
 
-        - important: self.tuer() => self.enVie == false
+        - important: `self.tuer() => self.enVie == false`
     */
 	mutating func tuer()
 

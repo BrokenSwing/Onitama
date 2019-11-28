@@ -6,13 +6,13 @@ protocol Onitama {
     /**
         Cette méthode crée le joueur 1 et le renvoie.
 
-        self.creerJoueur1().estJoueur1() == true
+        `self.creerJoueur1().estJoueur1() == true`
     */
 	func creerJoueur1() -> Joueur
     /**
         Cette méthode crée le joueur 2 et le renvoie.
 
-        self.creerJoueur2().estJoueur1() == false
+        `self.creerJoueur2().estJoueur1() == false`
     */
 	func creerJoueur2() -> Joueur
 
@@ -27,7 +27,7 @@ protocol Onitama {
             - x: la coordonnée x de la case sur laquelle doit se trouver le pion
             - y: la coordonnée y de la case sur laquelle doit se trouver le pion
 
-        self.creerPion(estMaitre: m, appartientA: j, x: x, y: y) => creer une instance p du protocol Pion tel que :
+        `self.creerPion(estMaitre: m, appartientA: j, x: x, y: y)` => creer une instance `p` du protocol `Pion` telle que :
 
             p.estMaitre == m
             p.joueur.estJoueur1() == j.estJoueur1()
@@ -41,12 +41,12 @@ protocol Onitama {
     /**
         Crée une carte avec le nom donné et les mouvements donnés.
 
+        `let carte = self.creerCarte(nom: n, estCouleurJoueur1: value, m1, m2, m3) => carte.nom == n && carte.mouvements == [m1, m2, m3] && carte.estCouleurJoueur1 == value`
+
         - parameters:
             - nom: Le nom de la carte que l'on veut créer
             - estCouleurJoueur1: true si la couleur de la carte correspond à la couleur du joueur 1, sinon false
             - mouvements: Les mouvements que la carte doit proposer
-
-            let carte = self.creerCarte(nom: n, estCouleurJoueur1: value, m1, m2, m3) => carte.nom == n && carte.mouvements == [m1, m2, m3] && carte.estCouleurJoueur1 == value
 
         - returns: la carte nouvellement créée
     */

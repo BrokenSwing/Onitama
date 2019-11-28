@@ -7,8 +7,9 @@ protocol Joueur {
 	/**
 		Indique si ce joueur est le joueur 1.
 
-		estJoueur1() == true si self représente le joueur 1
-		estJoueur1() == false si self représente le joueur 2
+		`estJoueur1() == true` si self représente le joueur 1
+
+		`estJoueur1() == false` si self représente le joueur 2
 
 		- returns: true si ce joueur est le joueur 1, sinon false
 	*/
@@ -30,6 +31,7 @@ protocol Joueur {
 		Si self.ajouterPion n'a jamais été appelé, alors self.pions retourne un tableau vide.
 
 		Pour tout p dans self.pions:
+
 			p.joueur.estJoueur1() == self.estJoueur1()
 
 		- returns: un tableau de pions possédés par le joueur.
@@ -39,12 +41,14 @@ protocol Joueur {
 	/**
 		Ajoute un pion possédé par ce joueur.
 
-		Pre-condition: pion.joueur.estJoueur1() == self.estJoueur1()
+		Pre-condition: 
+		
+			pion.joueur.estJoueur1() == self.estJoueur1()
 
 		- parameters:
 			- pion: Le pion à ajouter à la collection des pions possédés par le joueur
 		
-		self.ajouterPion(pion: p) => self.pions contient p
+		`self.ajouterPion(pion: p) => self.pions contient p`
 	*/
 	mutating func ajouterPion(pion: Pion)
 

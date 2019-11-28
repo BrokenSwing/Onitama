@@ -11,13 +11,13 @@ protocol Plateau {
 
 		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur
 		- important: s'il n'y a pas de pion à la position (x, y) alors cette méthode émet une erreur
-		- important: s'il y a un pion p à la position (x, y) et p.enVie == false alors cette méthode émet une erreur
+		- important: s'il y a un pion `p` à la position (x, y) et `p.enVie == false` alors cette méthode émet une erreur
 
 		- parameters:
 			- x: La coordonnée x du pion que l'on souhaite récupérer
 			- y: La coordonnée y du pion que l'on souhaite récupérer
 
-		- returns: le pion p se trouvant à la position (x, y) sur le plateau tel que p.enVie == true
+		- returns: le pion `p` se trouvant à la position (x, y) sur le plateau tel que `p.enVie == true`
 	*/
 	func getPionA(x: Int, y: Int) -> Pion
 
@@ -26,16 +26,18 @@ protocol Plateau {
 
 		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur
 
+		De plus :
+
 			self.caseOccupe(x: x, y: y) == true => self.getPionA(x: x, y: y) renvoie un pion
 			self.caseOccupe(x: x, y: y) == false => self.getPionA(x: x, y: y) émet une erreur
 		
-		Si self.setPionA(x: x, y: y, pion: pion) n'a jamais été appelé, alors self.caseOccupe(x: x, y: y) == false
+		Si `self.setPionA(x: x, y: y, pion: pion)` n'a jamais été appelé, alors `self.caseOccupe(x: x, y: y) == false`
 
 		- parameters:
 			- x: La coordonnée x de la case sur laquelle on veut savoir s'il y a un pion
 			- y: La coordonnée y de la case sur laquelle on veut savoir s'il y a un pion
 
-		- returns: true si un pion se situe à la position (x, y), sinon false
+		- returns: `true` si un pion se situe à la position (x, y), sinon `false`
 	*/
 	func caseOccupe(x: Int, y: Int) -> Bool
 
@@ -49,7 +51,7 @@ protocol Plateau {
 			- y: la coordonnée y de la case sur laquelle on veut placer le pion
 			- pion: le pion que l'on veut placer sur la case (x, y)
 
-		Si setPionA(x: x, y: y, pion: pion) n'a jamais été appelé, alors self.caseOccupe(x: x, y: y) == false
+		Si `setPionA(x: x, y: y, pion: pion)` n'a jamais été appelé, alors `self.caseOccupe(x: x, y: y) == false`
 		
 			self.setPionA(x: x, y: y, pion: pion) => self.caseOccupe(x: x, y: y) == true
 			self.setPionA(x: x, y: y, pion: pion) => pion.position == (x, y)
@@ -57,9 +59,9 @@ protocol Plateau {
 	mutating func setPionA(x: Int, y: Int, pion: inout Pion)
 
 	/**
-		Bouge le pion donnée vers la position donnée.
+		Bouge le pion donné vers la position donnée.
 
-		Lors de l'appel: self.bougerPion(pion: pion, x: x, y: y)
+		Lors de l'appel: `self.bougerPion(pion: pion, x: x, y: y)`
 
 		* Si le pion n'est pas autorisé à bouger:
 		
@@ -79,7 +81,7 @@ protocol Plateau {
 
 		* Si le pion est autorisé à bouger:
 				
-		C'est à dire vers la postion donnée est un case vide:
+		C'est à dire vers la position donnée est une case vide:
 		
 			self.caseOccupe(x: x, y: y) == false
 		
@@ -87,12 +89,11 @@ protocol Plateau {
 
 			self.caseOccupe(x: x, y: y) && self.getPionA(x: x, y: y).joueur.estJoueur1() != pion.joueur.estJoueur1()
 		
-		Alors soit :
+		Alors en considérant :
 
 			let (ancienX, ancienY) = pion.position
-			// Appel de self.bougerPion(pion: pion, x: x, y: y)
 
-		Alors on a :
+		On a suite à l'appel de `self.bougerPion(pion: pion, x: x, y: y)` :
 
 			pion.position == (x, y)
 			self.caseOccupe(x: ancienX, y: ancienY) == false
@@ -119,7 +120,7 @@ protocol Plateau {
 
 		Un mouvement est considéré emmenant sur la case d'un pion allié si pour un pion p et un mouvement m :
 
-			le mouvement n'emmnère pas en dehors du plateau et
+			// Le mouvement n'emmène pas en dehors du plateau ET
 			let (x, y) = pion.position
 			let (dx, dy) = m
 			self.caseOccupe(x: x + dx, y: y + dy) && self.getPionA(x: x + dx, y: y + dy).estJoueur1() == joueur.estJoueur1()
