@@ -76,7 +76,7 @@ class Affichage {
 					var p = self.onitama.plateau.getPionA(x: nx, y: ny)
 					p.tuer()
 				}
-				self.onitama.plateau.bougerPion(pion: choixPion!, x: nx, y: ny)
+				self.onitama.plateau.bougerPion(pion: &choixPion!, x: nx, y: ny)
 			}
 
 			let carteFlot = self.onitama.carteFlottante
@@ -151,14 +151,14 @@ class Affichage {
 			return nil
 		}
 
-		var pion = self.onitama.plateau.getPionA(x: choixX, y: choixY)
+		let pion = self.onitama.plateau.getPionA(x: choixX, y: choixY)
 		
 		if pion.joueur.estJoueur1() != self.joueurActuel.estJoueur1() {
 			print("Ce pion n'est pas à vous. Choisissez un autre pion")
 			return nil
 		}
 
-		var mvtPossibles = self.onitama.plateau.mouvementsPermisPion(par: pion, enUtilisant: carte)
+		let mvtPossibles = self.onitama.plateau.mouvementsPermisPion(par: pion, enUtilisant: carte)
 		if mvtPossibles.isEmpty {
 			print("Vous ne pouvez pas effectuer de mouvements avec ce pion. Ré-essayez avec un autre pion")
 			return nil
