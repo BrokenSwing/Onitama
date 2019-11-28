@@ -1,7 +1,3 @@
-//////////////////////////////////////////////
-////////////// IMPLEMENTATION ////////////////
-//////////////////////////////////////////////
-
 struct LeOnitama : Onitama {
 
 	private var _carteFlottante: Carte?
@@ -175,14 +171,6 @@ class LePlateau : Plateau {
 
 }
 
-//////////////////////////////////////////////
-///////////// FIN IMPLEMENTATION /////////////
-//////////////////////////////////////////////
-
-//////////////////////////////////////////////
-/////////// PROGRAMME PRINCIPAL //////////////
-//////////////////////////////////////////////
-
 class Affichage {
 
 	private var onitama: Onitama
@@ -191,6 +179,12 @@ class Affichage {
 	private var joueurActuel: Joueur
 	private var carteFlottante: Carte
 
+	/**
+		Crée une interface utilisateur pour le controlleur donné.
+
+		- parameters:
+			- onimata: Le controlleur du jeu
+	*/
 	init(onitama: Onitama) {
 		self.onitama = onitama
 		self.joueur1 = onitama.creerJoueur1()
@@ -218,22 +212,108 @@ class Affichage {
 		self.carteFlottante = cartes[4]
 	}
 
+	/**
+		Lance la partie.
+		Ceci lance la boucle principale du jeu qui va tourner tant que le jeu ne sera pas terminée.
+	*/
 	func lancerPartie() {
 		while !self.onitama.estTermine() {
 
-			let carteChoisie = self.faireChoixCarte()
-			self.afficherPlateau()
+			var carteChoisie: Carte = self.faireChoixCarte()
+
+			var choixPion: Pion? = nil
+			while choixPion == nil {
+				choixPion = self.faireChoixPion()
+			}
+
+			var choixMouvement = self.faireChoixMouvement(carte: carteChoisie)
 
 			self.changerDeJoueur()
 		}
 	}
 
+	private func faireChoixMouvement(carte: Carte) -> (Int, Int) {
+		for (index, el) in 1 ..< carteChoisie.mouvements.enumerated() {
+			let (x, y) = el
+			print("\(index). \(x)/\(y)")
+		}
+		print("Choisissez le mouvement que vous voulez opérer :")
+
+		guard let choixMoveStr = readLine() {
+			return faireChoixMouvement(carte: carte)
+		}
+
+		guard let choixMove: Int = Int(choixMoveStr) {
+			print("Ceci n'est pas entier. Ré-essayez !")
+			return faireChoixMouvement(carte: carte)
+		}
+
+		if choixMove < 0 || choixMove > carte.mouvements.count {
+			print("Ceci n'est pas un choix valide. Ré-essayez !")
+			return faireChoixMouvement(carte: carte)
+		}
+
+		return carte.mouvements[choixMove]
+	}
+
+	private func faireChoixPion() -> Pion? {
+		print("Le plateau :")
+		self.afficherPlateau()
+
+		print("Entrez la coordonnée x du pion que vous voulez bouger :")
+
+		guard let choixXStr = readLine() else {
+			return nil
+		}
+
+		guard let choixX: Int = Int(choixXStr) else {
+			print("Ceci n'est pas un entier.")
+			return nil
+		}
+
+		print("Entrez la coordonnée y du pion que vous voulez bouger :")
+
+		guard let choixYStr = readLine() else {
+			return nil
+		}
+
+		guard let choixY: Int = Int(choixYStr) else {
+			print("Ceci n'est pas un entier.")
+			return nil
+		}
+
+		if choixX < 0 || choixX > 4 || choixY < 0 || choixY > 4 {
+			print("Ces coordonnées sont en dehors du plateau")
+			return nil
+		}
+
+		if !self.plateau.caseOccupe(x: choixX, y: choixY) {
+			print("Il n'y a pas de pion à cette position")
+			return nil
+		}
+
+		var pion = self.plateau.getPionA(x: choixX, y: choixY)
+		
+		if pion.joueur.estJoueur1() != self.joueurActuel.estJoueur1() {
+			print("Ce pion n'est pas à vous. Choisissez un autre pion")
+			return nil
+		}
+
+		return pion
+
+	}
+
 	private func faireChoixCarte() -> Carte {
+
+		print("La carte flottante :")
+		self.afficherCarte(self.onimata.carteFlottante)
+
+		print("Vos cartes :")
 		let (carte1, carte2) = self.joueurActuel.cartes
-		print("Choix de carte 1 :")
 		self.afficherCarte(carte: carte1)
-		print("Choix de carte 2 :")
 		self.afficherCarte(carte: carte2)
+
+		print("Choisissez votre carte (1 ou 2): ")
 
 		guard let choixCarteStr: String = readLine() else {
 			fatalError("Pas d'entrée utilisateur reçu")
@@ -245,15 +325,16 @@ class Affichage {
 		}
 
 		if choixCarte == 1 {
-			print("Vous avez choisi la carte 1")
+			print("Vous avez choisi la carte \(carte1.nom)")
 			return carte1
 		}
 
 		if choixCarte == 2 {
-			print("Vous avez choisi la carte 2")
+			print("Vous avez choisi la carte \(carte2.nom)")
 			return carte2
 		}
 
+		print("Vous devez indiquer 1 ou 2. Le choix \(choixCarte) n'est pas un choix valide.")
 		return faireChoixCarte()
 	}
 

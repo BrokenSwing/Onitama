@@ -76,6 +76,10 @@ protocol Onitama {
     /**
         Indique si la partie est terminée.
 
+        La partie est terminée si tout les pions d'un joueur sont morts ou si le pion maître d'un joueur
+        est arrivé sur la case temple de l'autre joueur.
+        La case temple du joueur1 se trouve en (2, 4) et la case temple du joueur2 se trouve en (2, 0).
+
         - returns: true si la partie est terminée, sinon false
     */
 	func estTermine() -> Bool
