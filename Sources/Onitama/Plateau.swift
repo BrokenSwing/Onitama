@@ -7,11 +7,21 @@
 protocol Plateau {
 
 	/**
+		Créer un plateau vide.
+
+		C'est à dire que pour tout (x, y) appartenant à [0, 4]*[0, 4] on a :
+
+			caseOccupe(x: x, y: y) == false
+		
+	*/
+	init()
+
+	/**
 		Indique quel pion se trouve à la position (x, y).
 
-		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur
-		- important: s'il n'y a pas de pion à la position (x, y) alors cette méthode émet une erreur
-		- important: s'il y a un pion `p` à la position (x, y) et `p.enVie == false` alors cette méthode émet une erreur
+		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur fatale.
+		- important: s'il n'y a pas de pion à la position (x, y) alors cette méthode émet une erreur fatale.
+		- important: s'il y a un pion `p` à la position (x, y) et `p.enVie == false` alors cette méthode émet une erreur fatale.
 
 		- parameters:
 			- x: La coordonnée x du pion que l'on souhaite récupérer
@@ -24,12 +34,12 @@ protocol Plateau {
 	/**
 		Indique s'il y a un pion à la position (x, y).
 
-		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur
+		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur fatale.
 
 		De plus :
 
 			self.caseOccupe(x: x, y: y) == true => self.getPionA(x: x, y: y) renvoie un pion
-			self.caseOccupe(x: x, y: y) == false => self.getPionA(x: x, y: y) émet une erreur
+			self.caseOccupe(x: x, y: y) == false => self.getPionA(x: x, y: y) émet une erreur fatale.
 		
 		Si `self.setPionA(x: x, y: y, pion: pion)` n'a jamais été appelé, alors `self.caseOccupe(x: x, y: y) == false`
 
@@ -44,7 +54,7 @@ protocol Plateau {
 	/**
 		Place un pion à la position donnée (x, y).
 
-		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur
+		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur fatale.
 
 		- parameters:
 			- x: la coordonnée x de la case sur laquelle on veut placer le pion
@@ -77,7 +87,7 @@ protocol Plateau {
 		
 			pion.enVie == false
 		
-		Alors cette méthode émet une erreur
+		Alors cette méthode émet une erreur fatale.
 
 		* Si le pion est autorisé à bouger:
 				

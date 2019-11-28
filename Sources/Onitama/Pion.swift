@@ -5,6 +5,24 @@
 protocol Pion {
 
     /**
+        Crée un pion.
+
+        - parameters:
+            - estMaitre: `true` si le pion est un maître, sinon `false`
+            - joueur: Le joueur auquel appartient ce pion
+            - position: La position du pion sur le plateau
+
+        Suite à l'appel `init(estMaitre: estMaitre, joueur: joueur, position: position)` on a :
+
+            self.estMaitre == estMaitre
+            self.joueur.estJoueur1() == joueur.estJoueur1()
+            self.position == position
+            self.enVie == true
+
+    */
+    init(estMaitre: Bool, joueur: Joueur, position: (Int, Int)) 
+
+    /**
         Indique si le pion est un maître.
 
         - returns: `true` si le pion est un maitre, sinon `false`

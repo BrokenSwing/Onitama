@@ -4,11 +4,23 @@
 protocol Onitama {
 
     /**
+        Crée un controlleur pour le jeu Onitama.
+
+        Suite à `init()` on a :
+
+            // L'accès à self.carteFlottante renvoie une erreur fatale
+            // L'état de self.plateau est le même que celui suivant l'initialisation du protocol Plateau
+
+    */
+    init()
+
+    /**
         Cette méthode crée le joueur 1 et le renvoie.
 
         `self.creerJoueur1().estJoueur1() == true`
     */
 	func creerJoueur1() -> Joueur
+
     /**
         Cette méthode crée le joueur 2 et le renvoie.
 
@@ -57,7 +69,7 @@ protocol Onitama {
         pas en possession d'un des deux joueurs.
 
         Lors de l'appel de get on s'attend à recevoir la carte donnée précédemment via un appel de set.
-        Si set n'a jamais été appelé et qu'on appelle get, alors on émet une erreur.
+        Si set n'a jamais été appelé et qu'on appelle get, alors on émet une erreur fatale.
 
         - returns: la carte flottante de la partie
     */
@@ -69,7 +81,7 @@ protocol Onitama {
         - parameters:
             - cartes: Une liste de cartes parmi lesquelles les 5 cartes doivent être choisies
         
-        Si la liste de carte donnée en paramètre possède moins de 5 cartes, alors cette méthode émet une erreur.
+        Si la liste de carte donnée en paramètre possède moins de 5 cartes, alors cette méthode émet une erreur fatale.
 
         - returns: une liste de 5 cartes tirées au hasard parmi les cartes données
     */

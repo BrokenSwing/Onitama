@@ -4,6 +4,23 @@
 protocol Carte {
 
 	/**
+		Crée une carte.
+
+		- parameters:
+			- nom: Le nom de la carte
+			- mouvements: Les mouvements que la carte met à disposition
+			- estCouleurJoueur1: `true` si cette carte est de la même couleur que le joueur 1, sinon `false`
+
+		Suite à l'initialisation `init(nom: nom, mouvemements: mouvements, estCouleurJoueur1: estCouleurJoueur1)` on a :
+
+			self.nom == nom
+			self.mouvemements == mouvements
+			self.estCouleurJoueur1 == estCouleurJoueur1
+		
+	*/
+	init(nom: String, mouvements: [(Int, Int)], estCouleurJoueur1: Bool)
+
+	/**
 		Indique le nom de la carte.
 
 		- returns: un String contenant le nom de la carte
