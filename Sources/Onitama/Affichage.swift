@@ -49,6 +49,9 @@ class Affichage {
 		Ceci lance la boucle principale du jeu qui va tourner tant que le jeu ne sera pas terminée.
 	*/
 	func lancerPartie() {
+		print("Joueur 1, votre couleur est \u{1B}[96mcelle-ci\u{1B}[0m")
+		print("Joueur 2, votre couleur est \u{1B}[95mcelle-la\u{1B}[0m")
+
 		while !self.onitama.estTermine() {
 
 			if self.joueurActuel.estJoueur1() {
