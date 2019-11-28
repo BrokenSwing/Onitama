@@ -1,9 +1,0 @@
-language: swift
-notifications:
-  email: false
-install:
-  - sudo gem install jazzy
-script:
-  - swift build -v
-  - jazzy
-  - ls -Rl
