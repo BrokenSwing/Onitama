@@ -73,7 +73,8 @@ class Affichage {
 				let ny = px + dy
 
 				if self.onitama.plateau.caseOccupe(x: nx,  y: ny) {
-					self.onitama.plateau.getPionA(x: nx, y: ny).tuer()
+					var p = self.onitama.plateau.getPionA(x: nx, y: ny)
+					p.tuer()
 				}
 				self.onitama.plateau.bougerPion(pion: choixPion!, x: nx, y: ny)
 			}
@@ -91,24 +92,24 @@ class Affichage {
 	private func faireChoixMouvement(carte: Carte, pion: Pion) -> (Int, Int) {
 		var mvtPossibles = self.onitama.plateau.mouvementsPermisPion(par: pion, enUtilisant: carte)
 
-		for (index, el) in 1 ..< mvtPossibles.enumerated() {
+		for (index, el) in mvtPossibles.enumerated() {
 			let (x, y) = el
 			print("\(index). \(x)/\(y)")
 		}
 		print("Choisissez le mouvement que vous voulez opérer :")
 
 		guard let choixMoveStr = readLine() else {
-			return faireChoixMouvement(carte: carte, pion: Pion)
+			return self.faireChoixMouvement(carte: carte, pion: pion)
 		}
 
 		guard let choixMove: Int = Int(choixMoveStr) else {
 			print("Ceci n'est pas entier. Ré-essayez !")
-			return faireChoixMouvement(carte: carte, pion: Pion)
+			return self.faireChoixMouvement(carte: carte, pion: pion)
 		}
 
 		if choixMove < 0 || choixMove > mvtPossibles.count {
 			print("Ceci n'est pas un choix valide. Ré-essayez !")
-			return faireChoixMouvement(carte: carte, pion: Pion)
+			return self.faireChoixMouvement(carte: carte, pion: pion)
 		}
 
 		return mvtPossibles[choixMove]
@@ -145,12 +146,12 @@ class Affichage {
 			return nil
 		}
 
-		if !self.plateau.caseOccupe(x: choixX, y: choixY) {
+		if !self.onitama.plateau.caseOccupe(x: choixX, y: choixY) {
 			print("Il n'y a pas de pion à cette position")
 			return nil
 		}
 
-		var pion = self.plateau.getPionA(x: choixX, y: choixY)
+		var pion = self.onitama.plateau.getPionA(x: choixX, y: choixY)
 		
 		if pion.joueur.estJoueur1() != self.joueurActuel.estJoueur1() {
 			print("Ce pion n'est pas à vous. Choisissez un autre pion")
