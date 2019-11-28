@@ -26,8 +26,8 @@ protocol Plateau {
 
 		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur
 
-		self.caseOccupe(x: x, y: y) == true => self.getPionA(x: x, y: y) renvoie un pion
-		self.caseOccupe(x: x, y: y) == false => self.getPionA(x: x, y: y) émet une erreur
+			self.caseOccupe(x: x, y: y) == true => self.getPionA(x: x, y: y) renvoie un pion
+			self.caseOccupe(x: x, y: y) == false => self.getPionA(x: x, y: y) émet une erreur
 		
 		Si self.setPionA(x: x, y: y, pion: pion) n'a jamais été appelé, alors self.caseOccupe(x: x, y: y) == false
 
@@ -51,8 +51,8 @@ protocol Plateau {
 
 		Si setPionA(x: x, y: y, pion: pion) n'a jamais été appelé, alors self.caseOccupe(x: x, y: y) == false
 		
-		self.setPionA(x: x, y: y, pion: pion) => self.caseOccupe(x: x, y: y) == true
-		self.setPionA(x: x, y: y, pion: pion) => pion.position == (x, y)
+			self.setPionA(x: x, y: y, pion: pion) => self.caseOccupe(x: x, y: y) == true
+			self.setPionA(x: x, y: y, pion: pion) => pion.position == (x, y)
 	*/
 	mutating func setPionA(x: Int, y: Int, pion: inout Pion)
 
@@ -61,30 +61,30 @@ protocol Plateau {
 
 		Lors de l'appel: self.bougerPion(pion: pion, x: x, y: y)
 
-		Si le pion n'est pas autorisé à bouger:
+		* Si le pion n'est pas autorisé à bouger:
 		
-			C'est à dire que la position donnée est hors du plateau : 
-				x < 0 || x > 4 || y < 0 || y > 4)
-			ou que la case vers laquelle on veut bouger le pion est occupée et que le pion appartient au même joueur :
-				self.caseOccupe(x: x, y: y) && self.getPionA(x: x, y: y).joueur.estJoueur1() == pion.joueur.estJoueur1()
-			ou que le pion est mort:
-				pion.enVie == false
-			Alors cette méthode émet une erreur
+		C'est à dire que la position donnée est hors du plateau : 
+			x < 0 || x > 4 || y < 0 || y > 4)
+		ou que la case vers laquelle on veut bouger le pion est occupée et que le pion appartient au même joueur :
+			self.caseOccupe(x: x, y: y) && self.getPionA(x: x, y: y).joueur.estJoueur1() == pion.joueur.estJoueur1()
+		ou que le pion est mort:
+			pion.enVie == false
+		Alors cette méthode émet une erreur
 
-		Si le pion est autorisé à bouger:
+		* Si le pion est autorisé à bouger:
 				
-				C'est à dire vers la postion donnée est un case vide:
-					self.caseOccupe(x: x, y: y) == false
-				ou que la case est occupée par un pion adverse:
-					self.caseOccupe(x: x, y: y) && self.getPionA(x: x, y: y).joueur.estJoueur1() != pion.joueur.estJoueur1()
-				Alors soit :
-					let (ancienX, ancienY) = pion.position
-					// Appel de self.bougerPion(pion: pion, x: x, y: y)
-				Alors on a :
-					pion.position == (x, y)
-					self.caseOccupe(x: ancienX, y: ancienY) == false
-					self.caseOccupe(x: x, y: y) == true
-					self.getPionA(x: x, y: y).joueur.estJoueur1() == pion.joueur.estJoueur1()
+		C'est à dire vers la postion donnée est un case vide:
+			self.caseOccupe(x: x, y: y) == false
+		ou que la case est occupée par un pion adverse:
+			self.caseOccupe(x: x, y: y) && self.getPionA(x: x, y: y).joueur.estJoueur1() != pion.joueur.estJoueur1()
+		Alors soit :
+			let (ancienX, ancienY) = pion.position
+			// Appel de self.bougerPion(pion: pion, x: x, y: y)
+		Alors on a :
+			pion.position == (x, y)
+			self.caseOccupe(x: ancienX, y: ancienY) == false
+			self.caseOccupe(x: x, y: y) == true
+			self.getPionA(x: x, y: y).joueur.estJoueur1() == pion.joueur.estJoueur1()
 	*/
 	mutating func bougerPion(pion: inout Pion, x: Int, y: Int)
 
@@ -98,13 +98,15 @@ protocol Plateau {
 		ou que le mouvement ne l'emmène pas sur la case d'un pion allié.
 
 		Un mouvement est considéré emmenant en dehors du plateau si pour un pion p et un mouvement m :
+		
 			let (x, y) = pion.position
 			let (dx, dy) = m
 			0 <= (x + dx) <= 4
 			0 <= (y + dy) <= 4
 
 		Un mouvement est considéré emmenant sur la case d'un pion allié si pour un pion p et un mouvement m :
-			le mouvement n'emmnère pas en dehros du plateau et
+
+			le mouvement n'emmnère pas en dehors du plateau et
 			let (x, y) = pion.position
 			let (dx, dy) = m
 			self.caseOccupe(x: x + dx, y: y + dy) && self.getPionA(x: x + dx, y: y + dy).estJoueur1() == joueur.estJoueur1()
