@@ -23,7 +23,7 @@ protocol Onitama {
 
         - parameters:
             - estMaitre: true si le pion doit être un pion maitre, sinon false
-            - appartientA joueur: le joueur auquel ce pion doit appartenir
+            - joueur: le joueur auquel ce pion doit appartenir
             - x: la coordonnée x de la case sur laquelle doit se trouver le pion
             - y: la coordonnée y de la case sur laquelle doit se trouver le pion
 
@@ -42,13 +42,14 @@ protocol Onitama {
 
         - parameters:
             - nom: Le nom de la carte que l'on veut créer
-            - _ mouvements: Les mouvements que la carte doit proposer
+            - estCouleurJoueur1: true si la couleur de la carte correspond à la couleur du joueur 1, sinon false
+            - mouvements: Les mouvements que la carte doit proposer
 
         let carte = self.creerCarte(nom: n, m1, m2, m3) => carte.nom == n && carte.mouvements == [m1, m2, m3]
 
         - returns: la carte nouvellement créée
     */
-	func creerCarte(nom: String, _ mouvements : (Int, Int) ... ) -> Carte
+	func creerCarte(nom: String, estCouleurJoueur1: Bool, _ mouvements : (Int, Int) ... ) -> Carte
 
     /**
         Indique quelle carte est actuellement la carte flottante, c'est à dire la seule des cinq cartes du jeu qui ne soit
@@ -65,7 +66,7 @@ protocol Onitama {
         Tire 5 cartes au hasard parmi les cartes données.
 
         - parameters:
-            - parmi cartes: Une liste de cartes parmi lesquelles les 5 cartes doivent être choisies
+            - cartes: Une liste de cartes parmi lesquelles les 5 cartes doivent être choisies
         
         Si la liste de carte donnée en paramètre possède moins de 5 cartes, alors cette méthode émet une erreur.
 
@@ -76,7 +77,7 @@ protocol Onitama {
     /**
         Indique si la partie est terminée.
 
-        La partie est terminée si tout le pion maître d'un joueur est mort ou si n'importe que pion d'un joueur
+        La partie est terminée si le pion maître d'un joueur est mort ou si le pion maître d'un joueur
         est arrivé sur la case temple de l'autre joueur.
         La case temple du joueur1 se trouve en (2, 4) et la case temple du joueur2 se trouve en (2, 0).
 

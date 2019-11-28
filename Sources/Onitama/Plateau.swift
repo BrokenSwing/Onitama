@@ -98,7 +98,7 @@ protocol Plateau {
 		ou que le mouvement ne l'emmène pas sur la case d'un pion allié.
 
 		Un mouvement est considéré emmenant en dehors du plateau si pour un pion p et un mouvement m :
-		
+
 			let (x, y) = pion.position
 			let (dx, dy) = m
 			0 <= (x + dx) <= 4
@@ -112,8 +112,8 @@ protocol Plateau {
 			self.caseOccupe(x: x + dx, y: y + dy) && self.getPionA(x: x + dx, y: y + dy).estJoueur1() == joueur.estJoueur1()
 
 		- parameters:
-			- par joueur: Le joueur qui veut utiliser la carte
-			- enUtilisant carte: La carte que veut utiliser le joueur
+			- joueur: Le joueur qui veut utiliser la carte
+			- carte: La carte que veut utiliser le joueur
 
 		- returns: une liste contenant les mouvements proposés par la carte qui sont réalisables par au moins un pion du joueur passé en paramètre
 	*/
@@ -125,8 +125,8 @@ protocol Plateau {
 		Pour savoir ce qu'est un mouvement valide pour un pion, référez vous à la méthode `mouvementsPermis`.
 
 		- parameters:
-			- par pion: Le pion pour lequel on veut récupérer les mouvements permis avec la carte donnée
-			- enUtilisant carte: La carte avec laquelle on veut déplacer le pion
+			- pion: Le pion pour lequel on veut récupérer les mouvements permis avec la carte donnée
+			- carte: La carte avec laquelle on veut déplacer le pion
 
 		- returns: une liste de mouvements possibles pour le pion donné en utilisant la carte donnée
 	*/

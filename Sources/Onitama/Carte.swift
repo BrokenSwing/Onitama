@@ -20,4 +20,12 @@ protocol Carte {
 		- returns: une liste de mouvements
 	*/
 	var mouvements: [(Int, Int)] { get }
+
+	/**
+		Indique si la couleur de la carte correspond à la couleur du joueur 1.
+		Cette méthode sert pour savoir qui commence la partie, en effet, c'est le joueur
+		dont la couleur correspond à la carte flottante qui commence la partie.
+	*/
+	var estCouleurJoueur1: Bool { get }
+
 }

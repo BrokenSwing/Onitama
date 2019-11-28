@@ -16,7 +16,6 @@ class Affichage {
 		self.onitama = onitama
 		self.joueur1 = onitama.creerJoueur1()
 		self.joueur2 = onitama.creerJoueur2()
-		self.joueurActuel = self.joueur1
 
 		for i in [0, 1, 3, 4] {
 			self.onitama.creerPion(estMaitre: false, appartientA: &self.joueur1, x: i, y: 4)
@@ -26,17 +25,23 @@ class Affichage {
 		self.onitama.creerPion(estMaitre: true, appartientA: &self.joueur2, x: 2, y: 0)
 
 		var cartes : [Carte] = []
-		cartes.append(self.onitama.creerCarte(nom: "Lapin", (-1, -1), (1, 1), (2, 0)))
-		cartes.append(self.onitama.creerCarte(nom: "Boeuf", (0, 1), (1, 0), (0, -1)))
-		cartes.append(self.onitama.creerCarte(nom: "Elephant", (-1, 0), (1, 0), (-1, 1), (1, 1)))
-		cartes.append(self.onitama.creerCarte(nom: "Cobra", (-1, 0), (1, 1), (1, -1)))
-		cartes.append(self.onitama.creerCarte(nom: "Dragon", (-1, -1), (1, -1), (-2, 1), (2, 1)))
-		cartes.append(self.onitama.creerCarte(nom: "Tigre", (0, 2), (0, -1)))
+		cartes.append(self.onitama.creerCarte(nom: "Lapin", estCouleurJoueur1: true, (-1, -1), (1, 1), (2, 0)))
+		cartes.append(self.onitama.creerCarte(nom: "Boeuf", estCouleurJoueur1: true, (0, 1), (1, 0), (0, -1)))
+		cartes.append(self.onitama.creerCarte(nom: "Elephant", estCouleurJoueur1: false, (-1, 0), (1, 0), (-1, 1), (1, 1)))
+		cartes.append(self.onitama.creerCarte(nom: "Cobra", estCouleurJoueur1: true, (-1, 0), (1, 1), (1, -1)))
+		cartes.append(self.onitama.creerCarte(nom: "Dragon", estCouleurJoueur1: false, (-1, -1), (1, -1), (-2, 1), (2, 1)))
+		cartes.append(self.onitama.creerCarte(nom: "Tigre", estCouleurJoueur1: false, (0, 2), (0, -1)))
 
 		cartes = self.onitama.tirer5Carte(parmi: cartes)
 		self.joueur1.cartes = (cartes[0], cartes[1])
 		self.joueur2.cartes = (cartes[2], cartes[3])
 		self.carteFlottante = cartes[4]
+
+		if self.carteFlottante.estCouleurJoueur1 {
+			self.joueurActuel = self.joueur1
+		} else {
+			self.joueurActuel = self.joueur2
+		}
 	}
 
 	/**
