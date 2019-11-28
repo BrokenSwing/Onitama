@@ -2,7 +2,7 @@
     Ce protocol représente un pion du jeu. Un pion appartient à un joueur, se situe à une certaine position
     sur le plateau et est en vie ou pas.
 */
-protocol Pion {
+public protocol Pion {
 
     /**
         Crée un pion.

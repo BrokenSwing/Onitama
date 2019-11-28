@@ -2,7 +2,7 @@
 	Ce protocol représente un joueur de la partie. Un joueur possède deux cartes et
 	un ensemble de pions.
 */
-protocol Joueur {
+public protocol Joueur {
 
 	/**
 		Crée un joueur.

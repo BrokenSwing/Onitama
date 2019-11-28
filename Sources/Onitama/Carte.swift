@@ -1,7 +1,7 @@
 /**
 	Ce protocol représente une carte de mouvement.
 */
-protocol Carte {
+public protocol Carte {
 
 	/**
 		Crée une carte.

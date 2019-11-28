@@ -4,7 +4,7 @@
 	On désigne la case tout en haut à gauche comme (0, 0).
 	On désigne la case tout en bas à droite comme (4, 4).
 */
-protocol Plateau {
+public protocol Plateau {
 
 	/**
 		Créer un plateau vide.

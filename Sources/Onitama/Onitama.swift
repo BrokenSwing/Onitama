@@ -1,7 +1,7 @@
 /**
     Ce protocol représente le controlleur du jeu.
 */
-protocol Onitama {
+public protocol Onitama {
 
     /**
         Crée un controlleur pour le jeu Onitama.
