@@ -87,11 +87,10 @@ class Affichage {
 			let carteFlot = self.onitama.carteFlottante
 			self.onitama.carteFlottante = numCarteChoisie == 1 ? carte1 : carte2
 			self.joueurActuel.cartes = (numCarteChoisie == 1 ? carte2 : carte1, carteFlot)
+			self.afficherPlateau()
 
 			self.changerDeJoueur()
 		}
-
-		self.afficherPlateau()
 	}
 
 	private func faireChoixMouvement(carte: Carte, pion: Pion) -> (Int, Int) {
