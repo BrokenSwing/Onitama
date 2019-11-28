@@ -1,176 +1,3 @@
-struct LeOnitama : Onitama {
-
-	private var _carteFlottante: Carte?
-	private var _plateau: Plateau
-
-	init() {
-		self._carteFlottante = nil
-		self._plateau = LePlateau()
-	}
-
-	func creerJoueur1() -> Joueur {
-		return LeJoueur(estJoueur1: true)
-	}
-
-	func creerJoueur2() -> Joueur {
-		return LeJoueur(estJoueur1: false)
-	}
-
-	mutating func creerPion(estMaitre: Bool, appartientA joueur: inout Joueur, x: Int, y: Int) {
-		var pion: Pion = LePion(estMaitre: estMaitre, joueur: joueur, pos: (x, y))
-		joueur.ajouterPion(pion: pion)
-		self._plateau.setPionA(x: x, y: y, pion: &pion)
-	}
-
-	func creerCarte(nom: String, _ mouvements : (Int, Int) ... ) -> Carte {
-		var carte = LaCarte(nom: nom)
-		for (x, y) in mouvements {
-			carte.ajouterMouvement(x: x, y: y)
-		}
-		return carte
-	}
-
-	var carteFlottante: Carte {
-
-		get {
-			guard let carte: Carte = self._carteFlottante else {
-				fatalError("Pas de carte flottante")
-			}
-			return carte
-		} 
-
-		set(value) {
-			self._carteFlottante = value
-		} 
-	}
-
-	func tirer5Carte(parmi cartes: [Carte]) -> [Carte] {
-		var ret: [Carte] = []
-		for i in 0..<5 {
-			ret.append(cartes[i])
-		}
-		return ret
-	}
-
-	func estTermine() -> Bool {
-		return false
-	}
-
-	var plateau: Plateau { return self._plateau }
-
-}
-
-class LePion : Pion {
-
-	private var _enVie: Bool
-	
-	init(estMaitre: Bool, joueur: Joueur, pos: (Int, Int)) {
-		self.estMaitre = estMaitre
-		self.joueur = joueur
-		self._enVie = true
-		self.position = pos
-	}
-	
-	let estMaitre: Bool
-	
-	let joueur: Joueur
-	
-	var enVie: Bool { return self._enVie }
-	
-	var position: (Int, Int)
-	
-	func tuer() {
-		self._enVie = false
-	}
-}
-
-class LeJoueur : Joueur {
-
-	private var _cartes: (Carte, Carte)?
-	private var _pions: [Pion]
-	private var joueur1: Bool
-
-	init(estJoueur1: Bool) {
-		self._cartes = nil
-		self._pions = []
-		self.joueur1 = estJoueur1
-	}
-
-	var cartes: (Carte, Carte) { 
-
-		get {
-			guard let cs: (Carte, Carte) = self._cartes else {
-				fatalError("Le joueur n'a pas de cartes")
-			}
-			return cs
-		} 
-
-		set(value) {
-			self._cartes = value
-		} 
-	}
-	
-	var pions: [Pion] { return self._pions }
-	
-	func ajouterPion(pion: Pion) {
-		self._pions.append(pion)
-	}
-
-	func estJoueur1() -> Bool {
-		return self.joueur1
-	}
-
-}
-
-struct LaCarte : Carte {
-
-	private var _nom: String;
-	private var _mouvements: [(Int, Int)]
-
-	init(nom: String) {
-		self._nom = nom
-		self._mouvements = []
-	}
-
-	var nom: String { return self._nom }
-
-	mutating func ajouterMouvement(x: Int, y: Int) {
-		self._mouvements.append((x, y))
-	}
-
-	var mouvements: [(Int, Int)] { return self._mouvements }
-}
-
-class LePlateau : Plateau {
-
-	private var plateau: [[Pion?]]
-
-	init() {
-		self.plateau = Array(repeating: Array(repeating: nil, count: 5), count: 5)
-	}
-
-	func getPionA(x: Int, y: Int) -> Pion {
-		guard let pion = self.plateau[y][x] else {
-			fatalError("Pas de pion dans cette case")
-		}
-		return pion
-	}
-
-	func setPionA(x: Int, y: Int, pion: inout Pion) {
-		pion.position = (x, y)
-		self.plateau[y][x] = pion
-	}
-
-	func caseOccupe(x: Int, y: Int) -> Bool {
-		return self.plateau[y][x] != nil
-	}
-
-	func caseTemple(x: Int, y: Int) -> Bool {
-		return true
-	}
-
-}
-
 class Affichage {
 
 	private var onitama: Onitama
@@ -219,44 +46,75 @@ class Affichage {
 	func lancerPartie() {
 		while !self.onitama.estTermine() {
 
-			var carteChoisie: Carte = self.faireChoixCarte()
-
-			var choixPion: Pion? = nil
-			while choixPion == nil {
-				choixPion = self.faireChoixPion()
+			if self.joueurActuel.estJoueur1() {
+				print("C'est le tour du JOUEUR 1")
+			} else {
+				print("C'est le tour du JOUEUR 2")
 			}
 
-			var choixMouvement = self.faireChoixMouvement(carte: carteChoisie)
+			var numCarteChoisie: Int = self.faireChoixCarte()
+			var (carte1, carte2) = self.joueurActuel.cartes
+
+			let mvtCarte1 = self.onimata.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte1)
+			let mvtCarte2 = self.onitama.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte2)
+
+			// Le joueur peut bouger un pion
+			if !mvtCarte1.isEmpty || !mvtCarte2.isEmpty {
+				var choixPion: Pion? = nil
+				while choixPion == nil {
+					choixPion = self.faireChoixPion(carte: numCarteChoisie == 1 ? carte1 : carte2)
+				}
+
+				var choixMouvement = self.faireChoixMouvement(carte: numCarteChoisie == 1 ? carte1 : carte2, pion: choixPion!)
+
+				let (px, py) = choixPion!.position
+				let (dx, dy) = choixMouvement
+				let nx = px + dx
+				let ny = px + dy
+
+				if self.onimata.plateau.caseOccupe(x: nx,  y: ny) {
+					self.onimata.plateau.getPionA(x: nx, y: ny).tuer()
+				}
+				self.onimata.plateau.bougerPion(pion: choixPion!, x: nx, y: ny)
+			}
+
+			let carteFlot = self.onimata.carteFlottante
+			self.onimata.carteFlottante = numCarteChoisie == 1 ? carte1 : carte2
+			self.joueurActuel.cartes = (numCarteChoisie == 1 ? carte2 : carte1, carteFlot)
 
 			self.changerDeJoueur()
 		}
+
+		self.afficherPlateau()
 	}
 
-	private func faireChoixMouvement(carte: Carte) -> (Int, Int) {
-		for (index, el) in 1 ..< carteChoisie.mouvements.enumerated() {
+	private func faireChoixMouvement(carte: Carte, pion: Pion) -> (Int, Int) {
+		var mvtPossibles = self.onimata.plateau.mouvementsPermisPion(par: pion, enUtilisant: carte)
+
+		for (index, el) in 1 ..< mvtPossibles.enumerated() {
 			let (x, y) = el
 			print("\(index). \(x)/\(y)")
 		}
 		print("Choisissez le mouvement que vous voulez opérer :")
 
 		guard let choixMoveStr = readLine() {
-			return faireChoixMouvement(carte: carte)
+			return faireChoixMouvement(carte: carte, pion: Pion)
 		}
 
 		guard let choixMove: Int = Int(choixMoveStr) {
 			print("Ceci n'est pas entier. Ré-essayez !")
-			return faireChoixMouvement(carte: carte)
+			return faireChoixMouvement(carte: carte, pion: Pion)
 		}
 
-		if choixMove < 0 || choixMove > carte.mouvements.count {
+		if choixMove < 0 || choixMove > mvtPossibles.count {
 			print("Ceci n'est pas un choix valide. Ré-essayez !")
-			return faireChoixMouvement(carte: carte)
+			return faireChoixMouvement(carte: carte, pion: Pion)
 		}
 
-		return carte.mouvements[choixMove]
+		return mvtPossibles[choixMove]
 	}
 
-	private func faireChoixPion() -> Pion? {
+	private func faireChoixPion(carte: Carte) -> Pion? {
 		print("Le plateau :")
 		self.afficherPlateau()
 
@@ -299,20 +157,45 @@ class Affichage {
 			return nil
 		}
 
+		var mvtPossibles = self.onimata.plateau.mouvementsPermisPion(par: Pion, enUtilisant: carte)
+		if mvtPossibles.isEmpty {
+			print("Vous ne pouvez pas effectuer de mouvements avec ce pion. Ré-essayez avec un autre pion")
+			return nil
+		}
+
 		return pion
 
 	}
 
-	private func faireChoixCarte() -> Carte {
+	private func faireChoixCarte() -> Int {
 
 		print("La carte flottante :")
 		self.afficherCarte(self.onimata.carteFlottante)
 
 		print("Vos cartes :")
 		let (carte1, carte2) = self.joueurActuel.cartes
-		self.afficherCarte(carte: carte1)
-		self.afficherCarte(carte: carte2)
 
+		let mvtCarte1 = self.onimata.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte1)
+		let mvtCarte2 = self.onitama.plateau.mouvementsPermis(par: self.joueurActuel, enUtilisant: carte2)
+		let aucunMvtPossible = mvtCarte1.isEmpty && mvtCarte2.isEmpty
+
+		if (aucunMvtPossible) {
+			self.afficherCarte(carte: carte1)
+			self.afficherCarte(carte: carte2)
+		} else {
+			if !mvtCarte1.isEmpty {
+				print("Carte 1")
+				self.afficherCarte(carte: carte1)
+			}
+			if !mvtCarte1.isEmpty {
+				print("Carte 2")
+				self.afficherCarte(carte: carte2)
+			}
+		}
+
+		if aucunMvtPossible {
+			print("Vous ne pouvez pas vous déplacer en utilisant vos cartes. Vous devez forcément échanger avec une de vos carte.")
+		}
 		print("Choisissez votre carte (1 ou 2): ")
 
 		guard let choixCarteStr: String = readLine() else {
@@ -324,14 +207,14 @@ class Affichage {
 			return faireChoixCarte()
 		}
 
-		if choixCarte == 1 {
+		if choixCarte == 1 && (aucunMvtPossible || !mvtCarte1.isEmpty) {
 			print("Vous avez choisi la carte \(carte1.nom)")
-			return carte1
+			return 1
 		}
 
-		if choixCarte == 2 {
+		if choixCarte == 2 && (aucunMvtPossible || !mvtCarte2.isEmpty) {
 			print("Vous avez choisi la carte \(carte2.nom)")
-			return carte2
+			return 2
 		}
 
 		print("Vous devez indiquer 1 ou 2. Le choix \(choixCarte) n'est pas un choix valide.")
