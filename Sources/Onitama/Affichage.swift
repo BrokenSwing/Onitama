@@ -75,7 +75,7 @@ class Affichage {
 				let (px, py) = choixPion!.position
 				let (dx, dy) = choixMouvement
 				let nx = px + dx
-				let ny = px + dy
+				let ny = px - dy
 
 				if self.onitama.plateau.caseOccupe(x: nx,  y: ny) {
 					var p = self.onitama.plateau.getPionA(x: nx, y: ny)
@@ -193,7 +193,7 @@ class Affichage {
 				print("Carte 1")
 				self.afficherCarte(carte: carte1)
 			}
-			if !mvtCarte1.isEmpty {
+			if !mvtCarte2.isEmpty {
 				print("Carte 2")
 				self.afficherCarte(carte: carte2)
 			}
