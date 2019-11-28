@@ -86,6 +86,7 @@ protocol Onitama {
 
     /**
         Cette propriété est le tableau sur lequel se déroule la partie.
+        Cette propriété doit être initialisée lors de l'initilisation de ce type.
     */
-	var plateau: Plateau { get }
+	var plateau: Plateau { get set }
 }

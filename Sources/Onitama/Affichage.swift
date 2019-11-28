@@ -90,7 +90,7 @@ class Affichage {
 	}
 
 	private func faireChoixMouvement(carte: Carte, pion: Pion) -> (Int, Int) {
-		var mvtPossibles = self.onitama.plateau.mouvementsPermisPion(par: pion, enUtilisant: carte)
+		let mvtPossibles = self.onitama.plateau.mouvementsPermisPion(par: pion, enUtilisant: carte)
 
 		for (index, el) in mvtPossibles.enumerated() {
 			let (x, y) = el
@@ -158,7 +158,7 @@ class Affichage {
 			return nil
 		}
 
-		var mvtPossibles = self.onitama.plateau.mouvementsPermisPion(par: Pion, enUtilisant: carte)
+		var mvtPossibles = self.onitama.plateau.mouvementsPermisPion(par: pion, enUtilisant: carte)
 		if mvtPossibles.isEmpty {
 			print("Vous ne pouvez pas effectuer de mouvements avec ce pion. Ré-essayez avec un autre pion")
 			return nil
@@ -171,7 +171,7 @@ class Affichage {
 	private func faireChoixCarte() -> Int {
 
 		print("La carte flottante :")
-		self.afficherCarte(self.onitama.carteFlottante)
+		self.afficherCarte(carte: self.onitama.carteFlottante)
 
 		print("Vos cartes :")
 		let (carte1, carte2) = self.joueurActuel.cartes
