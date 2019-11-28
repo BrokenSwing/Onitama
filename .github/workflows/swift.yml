@@ -11,3 +11,9 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build
       run: swift build -v
+    - name: Install Jazzy
+      run: gem install jazzy
+    - name: Run Jazzy
+      run: |
+        jazzy
+        ls -Rl
