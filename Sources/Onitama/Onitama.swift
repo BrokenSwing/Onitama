@@ -46,7 +46,7 @@ protocol Onitama {
             - estCouleurJoueur1: true si la couleur de la carte correspond à la couleur du joueur 1, sinon false
             - mouvements: Les mouvements que la carte doit proposer
 
-        let carte = self.creerCarte(nom: n, m1, m2, m3) => carte.nom == n && carte.mouvements == [m1, m2, m3]
+            let carte = self.creerCarte(nom: n, estCouleurJoueur1: value, m1, m2, m3) => carte.nom == n && carte.mouvements == [m1, m2, m3] && carte.estCouleurJoueur1 == value
 
         - returns: la carte nouvellement créée
     */
