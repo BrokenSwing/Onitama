@@ -28,11 +28,12 @@ protocol Onitama {
             - y: la coordonnée y de la case sur laquelle doit se trouver le pion
 
         self.creerPion(estMaitre: m, appartientA: j, x: x, y: y) => creer une instance p du protocol Pion tel que :
-            - p.estMaitre == m
-            - p.joueur.estJoueur1() == j.estJoueur1()
-            - p.pos == (x, y)
-            - p est contenu dans j.pions
-            - self.plateau.getPionA(x: x, y: y) est p
+
+            p.estMaitre == m
+            p.joueur.estJoueur1() == j.estJoueur1()
+            p.pos == (x, y)
+            p est contenu dans j.pions
+            self.plateau.getPionA(x: x, y: y) est p
         
     */
 	mutating func creerPion(estMaitre: Bool, appartientA joueur: inout Joueur, x: Int, y: Int)
