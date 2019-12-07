@@ -14,7 +14,6 @@ public protocol Joueur {
 
 			self.estJoueur1 == estJoueur1
 			// l'accès à self.cartes émet une erreur fatale
-			self.pions == []
 	*/
 	init(estJoueur1: Bool)
 
@@ -39,31 +38,5 @@ public protocol Joueur {
 		- returns: un tuple de deux cartes qui sont les deux cartes que possède ce joueur à ce moment de la partie
 	*/
 	var cartes: (Carte, Carte) { get set }
-
-	/**
-		Indiques quels pions sont possédés par le joueur.
-		Si self.ajouterPion n'a jamais été appelé, alors self.pions retourne un tableau vide.
-
-		Pour tout p dans self.pions:
-
-			p.joueur.estJoueur1() == self.estJoueur1()
-
-		- returns: un tableau de pions possédés par le joueur.
-	*/
-	var pions: [Pion] { get }
-
-	/**
-		Ajoute un pion possédé par ce joueur.
-
-		Pre-condition: 
-		
-			pion.joueur.estJoueur1() == self.estJoueur1()
-
-		- parameters:
-			- pion: Le pion à ajouter à la collection des pions possédés par le joueur
-		
-		`self.ajouterPion(pion: p) => self.pions contient p`
-	*/
-	mutating func ajouterPion(pion: Pion)
 
 }

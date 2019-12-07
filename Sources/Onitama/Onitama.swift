@@ -10,59 +10,27 @@ public protocol Onitama {
 
             // L'accès à self.carteFlottante renvoie une erreur fatale
             // L'état de self.plateau est le même que celui suivant l'initialisation du protocol Plateau
+            self.joueur1.estJoueur1() == true
+            self.joueur2.estJoueur1() == false
 
     */
     init()
 
     /**
-        Cette méthode crée le joueur 1 et le renvoie.
+        Cette propriété représente le joueur 1.
 
-        `self.creerJoueur1().estJoueur1() == true`
+        L’appel du get renvoie le joueur 1 c’est à dire le joueur tel que self.joueur1.estJoueur1() == true
+        Le set n’est ici que pour satisfaire la mutabilité du joueur.
     */
-	func creerJoueur1() -> Joueur
+    var joueur1: Joueur { get set }
 
     /**
-        Cette méthode crée le joueur 2 et le renvoie.
+        Cette propriété représente le joueur 2.
 
-        `self.creerJoueur2().estJoueur1() == false`
+        L’appel du get renvoie le joueur 2 c’est à dire le joueur tel que self.joueur2.estJoueur1() == false
+        Le set n’est ici que pour satisfaire la mutabilité du joueur.
     */
-	func creerJoueur2() -> Joueur
-
-    /**
-        Crée un pion à une position donnée, pour un joueur donné.
-
-        - important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur
-
-        - parameters:
-            - estMaitre: true si le pion doit être un pion maitre, sinon false
-            - joueur: le joueur auquel ce pion doit appartenir
-            - x: la coordonnée x de la case sur laquelle doit se trouver le pion
-            - y: la coordonnée y de la case sur laquelle doit se trouver le pion
-
-        `self.creerPion(estMaitre: m, appartientA: j, x: x, y: y)` => creer une instance `p` du protocol `Pion` telle que :
-
-            p.estMaitre == m
-            p.joueur.estJoueur1() == j.estJoueur1()
-            p.pos == (x, y)
-            p est contenu dans j.pions
-            self.plateau.getPionA(x: x, y: y) est p
-        
-    */
-	mutating func creerPion(estMaitre: Bool, appartientA joueur: inout Joueur, x: Int, y: Int)
-
-    /**
-        Crée une carte avec le nom donné et les mouvements donnés.
-
-        `let carte = self.creerCarte(nom: n, estCouleurJoueur1: value, m1, m2, m3) => carte.nom == n && carte.mouvements == [m1, m2, m3] && carte.estCouleurJoueur1 == value`
-
-        - parameters:
-            - nom: Le nom de la carte que l'on veut créer
-            - estCouleurJoueur1: true si la couleur de la carte correspond à la couleur du joueur 1, sinon false
-            - mouvements: Les mouvements que la carte doit proposer
-
-        - returns: la carte nouvellement créée
-    */
-	func creerCarte(nom: String, estCouleurJoueur1: Bool, _ mouvements : (Int, Int) ... ) -> Carte
+    var joueur2: Joueur { get set }
 
     /**
         Indique quelle carte est actuellement la carte flottante, c'est à dire la seule des cinq cartes du jeu qui ne soit
@@ -101,6 +69,7 @@ public protocol Onitama {
     /**
         Cette propriété est le tableau sur lequel se déroule la partie.
         Cette propriété doit être initialisée lors de l'initilisation de ce type.
+        Le set n’est ici que pour satisfaire la mutabilité du plateau.
     */
 	var plateau: Plateau { get set }
 }

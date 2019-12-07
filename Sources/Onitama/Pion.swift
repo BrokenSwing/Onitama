@@ -7,6 +7,8 @@ public protocol Pion {
     /**
         Crée un pion.
 
+        - important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur fatale
+
         - parameters:
             - estMaitre: `true` si le pion est un maître, sinon `false`
             - joueur: Le joueur auquel appartient ce pion
@@ -18,7 +20,6 @@ public protocol Pion {
             self.joueur.estJoueur1() == joueur.estJoueur1()
             self.position == position
             self.enVie == true
-
     */
     init(estMaitre: Bool, joueur: Joueur, position: (Int, Int)) 
 

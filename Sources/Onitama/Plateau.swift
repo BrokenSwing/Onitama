@@ -7,14 +7,42 @@
 public protocol Plateau {
 
 	/**
-		Créer un plateau vide.
+		Créer un plateau initialisé avec les pions placés sur leur case de départ.
 
-		C'est à dire que pour tout (x, y) appartenant à [0, 4]*[0, 4] on a :
+		C'est à dire que pour tout (x, y) appartenant à [0, 4]*[1, 3] on a :
 
 			caseOccupe(x: x, y: y) == false
+
+		Et pour tout x appartenant à {0, 1, 3, 4}:
+
+			caseOccupe(x: x, y: 0) == true && 
+			getPionA(x: x, y: 0).joueur.estJoueur1() == false &&
+			getPionA(x: x, y: 0).estMaitre == false
+			
+		Et :
+
+			caseOccupe(x: 2, y: 0) == true &&
+			getPionA(x: 2, y: 0).joueur.estJoueur1() == false &&
+			getPionA(x: 2, y: 0).estMaitre == true
+
+		Et pour tout x appartenant à {0, 1, 3, 4}:
+
+			caseOccupe(x: x, y: 4) == true && 
+			getPionA(x: x, y: 4).joueur.estJoueur1() == true &&
+			getPionA(x: x, y: 4).estMaitre == false
+			
+		Et :
+
+			caseOccupe(x: 2, y: 4) == true &&
+			getPionA(x: 2, y: 4).joueur.estJoueur1() == true &&
+			getPionA(x: 2, y: 4).estMaitre == true	
 		
+		- parameters:
+			- joueur1: Un joueur tel que `joueur1.estJoueur1() == true`
+			- joueur2: Un joueur tel que `joueur2.estJoueur1() == false`
+
 	*/
-	init()
+	init(joueur1: Joueur, joueur2: Joueur)
 
 	/**
 		Indique quel pion se trouve à la position (x, y).
@@ -50,23 +78,6 @@ public protocol Plateau {
 		- returns: `true` si un pion se situe à la position (x, y), sinon `false`
 	*/
 	func caseOccupe(x: Int, y: Int) -> Bool
-
-	/**
-		Place un pion à la position donnée (x, y).
-
-		- important: x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n'est pas le cas, la méthode émet une erreur fatale.
-
-		- parameters:
-			- x: la coordonnée x de la case sur laquelle on veut placer le pion
-			- y: la coordonnée y de la case sur laquelle on veut placer le pion
-			- pion: le pion que l'on veut placer sur la case (x, y)
-
-		Si `setPionA(x: x, y: y, pion: pion)` n'a jamais été appelé, alors `self.caseOccupe(x: x, y: y) == false`
-		
-			self.setPionA(x: x, y: y, pion: pion) => self.caseOccupe(x: x, y: y) == true
-			self.setPionA(x: x, y: y, pion: pion) => pion.position == (x, y)
-	*/
-	mutating func setPionA(x: Int, y: Int, pion: inout Pion)
 
 	/**
 		Bouge le pion donné vers la position donnée.
@@ -126,14 +137,14 @@ public protocol Plateau {
 			let (x, y) = pion.position
 			let (dx, dy) = m
 			0 <= (x + dx) <= 4
-			0 <= (y + dy) <= 4
+			0 <= (y - dy) <= 4
 
 		Un mouvement est considéré emmenant sur la case d'un pion allié si pour un pion p et un mouvement m :
 
 			// Le mouvement n'emmène pas en dehors du plateau ET
 			let (x, y) = pion.position
 			let (dx, dy) = m
-			self.caseOccupe(x: x + dx, y: y + dy) && self.getPionA(x: x + dx, y: y + dy).estJoueur1() == joueur.estJoueur1()
+			self.caseOccupe(x: x + dx, y: y - dy) && self.getPionA(x: x + dx, y: y - dy).estJoueur1() == joueur.estJoueur1()
 
 		- parameters:
 			- joueur: Le joueur qui veut utiliser la carte
