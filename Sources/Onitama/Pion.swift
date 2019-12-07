@@ -39,7 +39,7 @@ public protocol Pion {
 
     /**
         Indique si pion est toujours en vie. C'est à dire qu'il ne s'est pas encore
-        manger par un autre pion.
+        fait manger par un autre pion.
 
         - returns: `true` si le pion est en vie, sinon `false`
     */
@@ -49,7 +49,7 @@ public protocol Pion {
         Indique la position du pion sur le plateau.
 
         Dans le cas d'utilisation du set, le tuple donné est de la forme (x, y) avec x appartenant à [0 ; 4] et y
-        appartenant à [0 ; 4]. Si x ou y ne respectent pas ces conditions, alors on doit déclencher une erreur.
+        appartenant à [0 ; 4]. Si x ou y ne respectent pas ces conditions, alors on doit déclencher une erreur fatale.
 
         Lors de l'utilisation du get, on s'attend à ce que le retour soit égal à la position donnée précédemment
         lors de l'utilisation du set.

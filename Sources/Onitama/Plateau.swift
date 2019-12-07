@@ -1,8 +1,14 @@
 /**
 	Ce protocol représente le plateau de jeu, c'est à dire une grille de 5x5 cases. Sur chaque case de
 	cette grille on peut ou pas trouver un pion.
+
 	On désigne la case tout en haut à gauche comme (0, 0).
+	On désigne la case tout en haut à droite comme (4, 0).
+	On désigne la case tout en bas à gauche comme (0, 4).
 	On désigne la case tout en bas à droite comme (4, 4).
+
+	Les positions sont des couples (x, y) appartenant à [0, 4]*[0, 4].
+
 */
 public protocol Plateau {
 
@@ -120,6 +126,15 @@ public protocol Plateau {
 			self.caseOccupe(x: ancienX, y: ancienY) == false
 			self.caseOccupe(x: x, y: y) == true
 			self.getPionA(x: x, y: y).joueur.estJoueur1() == pion.joueur.estJoueur1()
+
+		Et si la case était occupée par un pion `p` adverse :
+
+			self.caseOccupe(x: x, y: y) && self.getPionA(x: x, y: y).joueur.estJoueur1() != pion.joueur.estJoueur1()
+
+		Alors on a aussi, suite à l'appel de `self.bougerPion(pion: pion, x: x, y: y)` :
+
+			p.estVie == false
+
 	*/
 	mutating func bougerPion(pion: inout Pion, x: Int, y: Int)
 
@@ -132,14 +147,14 @@ public protocol Plateau {
 		Un pion peut se déplacer selon un mouvement si se mouvement ne l'emmène pas en dehors du plateau de jeu
 		ou que le mouvement ne l'emmène pas sur la case d'un pion allié.
 
-		Un mouvement est considéré emmenant en dehors du plateau si pour un pion p et un mouvement m :
+		Un mouvement est considéré emmenant en dehors du plateau si pour un pion `p` et un mouvement `m` :
 
 			let (x, y) = pion.position
 			let (dx, dy) = m
 			0 <= (x + dx) <= 4
 			0 <= (y - dy) <= 4
 
-		Un mouvement est considéré emmenant sur la case d'un pion allié si pour un pion p et un mouvement m :
+		Un mouvement est considéré emmenant sur la case d'un pion allié si pour un pion `p` et un mouvement `m` :
 
 			// Le mouvement n'emmène pas en dehors du plateau ET
 			let (x, y) = pion.position

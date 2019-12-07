@@ -11,11 +11,14 @@ public protocol Carte {
 			- mouvements: Les mouvements que la carte met à disposition
 			- estCouleurJoueur1: `true` si cette carte est de la même couleur que le joueur 1, sinon `false`
 
-		Suite à l'initialisation `init(nom: nom, mouvemements: mouvements, estCouleurJoueur1: estCouleurJoueur1)` on a :
+		Suite à l'initialisation `init(nom: nom, mouvements: mouvements, estCouleurJoueur1: estCouleurJoueur1)` on a :
 
 			self.nom == nom
-			self.mouvemements == mouvements
+			self.mouvements == mouvements
 			self.estCouleurJoueur1 == estCouleurJoueur1
+
+		Les mouvements mouvements sont des tuple de deux entiers (x, y) tels que x appartient à [-2, 2] et y appartient
+		à [-2, 2]. Si ce n'est pas le cas, c'est une erreur fatale.
 		
 	*/
 	init(nom: String, mouvements: [(Int, Int)], estCouleurJoueur1: Bool)

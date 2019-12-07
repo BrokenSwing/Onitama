@@ -19,7 +19,7 @@ public protocol Onitama {
     /**
         Cette propriété représente le joueur 1.
 
-        L’appel du get renvoie le joueur 1 c’est à dire le joueur tel que self.joueur1.estJoueur1() == true
+        L’appel du get renvoie le joueur 1 c’est à dire le joueur tel que `self.joueur1.estJoueur1() == true`
         Le set n’est ici que pour satisfaire la mutabilité du joueur.
     */
     var joueur1: Joueur { get set }
@@ -27,7 +27,7 @@ public protocol Onitama {
     /**
         Cette propriété représente le joueur 2.
 
-        L’appel du get renvoie le joueur 2 c’est à dire le joueur tel que self.joueur2.estJoueur1() == false
+        L’appel du get renvoie le joueur 2 c’est à dire le joueur tel que `self.joueur2.estJoueur1() == false`
         Le set n’est ici que pour satisfaire la mutabilité du joueur.
     */
     var joueur2: Joueur { get set }
@@ -62,7 +62,7 @@ public protocol Onitama {
         est arrivé sur la case temple de l'autre joueur.
         La case temple du joueur1 se trouve en (2, 4) et la case temple du joueur2 se trouve en (2, 0).
 
-        - returns: true si la partie est terminée, sinon false
+        - returns: `true` si la partie est terminée, sinon `false`
     */
 	func estTermine() -> Bool
 
