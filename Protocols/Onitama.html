@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Onitama Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/Onitama" class="dashAnchor"></a>
+    <a title="Onitama Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Onitama Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Carte.html">Carte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Joueur.html">Joueur</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Onitama.html">Onitama</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Pion.html">Pion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Plateau.html">Plateau</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Onitama</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Onitama</span></code></pre>
+
+                </div>
+              </div>
+            <p>Ce protocol représente le controlleur du jeu.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7OnitamaAAPxycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7OnitamaAAPxycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Crée un controlleur pour le jeu Onitama.</p>
+
+<p>Suite à <code>init()</code> on a :</p>
+<pre class="highlight swift"><code><span class="c1">// L'accès à self.carteFlottante renvoie une erreur fatale</span>
+<span class="c1">// L'état de self.plateau est le même que celui suivant l'initialisation du protocol Plateau</span>
+<span class="k">self</span><span class="o">.</span><span class="n">joueur1</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">==</span> <span class="kc">true</span>
+<span class="k">self</span><span class="o">.</span><span class="n">joueur2</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">==</span> <span class="kc">false</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7OnitamaAAP7joueur1AA6Joueur_pvp"></a>
+                    <a name="//apple_ref/swift/Property/joueur1" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7OnitamaAAP7joueur1AA6Joueur_pvp">joueur1</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cette propriété représente le joueur 1.</p>
+
+<p>L’appel du get renvoie le joueur 1 c’est à dire le joueur tel que <code>self.joueur1.estJoueur1() == true</code>
+Le set n’est ici que pour satisfaire la mutabilité du joueur.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">joueur1</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Joueur.html">Joueur</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7OnitamaAAP7joueur2AA6Joueur_pvp"></a>
+                    <a name="//apple_ref/swift/Property/joueur2" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7OnitamaAAP7joueur2AA6Joueur_pvp">joueur2</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cette propriété représente le joueur 2.</p>
+
+<p>L’appel du get renvoie le joueur 2 c’est à dire le joueur tel que <code>self.joueur2.estJoueur1() == false</code>
+Le set n’est ici que pour satisfaire la mutabilité du joueur.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">joueur2</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Joueur.html">Joueur</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7OnitamaAAP14carteFlottanteAA5Carte_pvp"></a>
+                    <a name="//apple_ref/swift/Property/carteFlottante" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7OnitamaAAP14carteFlottanteAA5Carte_pvp">carteFlottante</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indique quelle carte est actuellement la carte flottante, c&#39;est à dire la seule des cinq cartes du jeu qui ne soit
+pas en possession d&#39;un des deux joueurs.</p>
+
+<p>Lors de l&#39;appel de get on s&#39;attend à recevoir la carte donnée précédemment via un appel de set.
+Si set n&#39;a jamais été appelé et qu&#39;on appelle get, alors on émet une erreur fatale.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">carteFlottante</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Carte.html">Carte</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>la carte flottante de la partie</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7OnitamaAAP11tirer5Carte5parmiSayAA0C0_pGAF_tF"></a>
+                    <a name="//apple_ref/swift/Method/tirer5Carte(parmi:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7OnitamaAAP11tirer5Carte5parmiSayAA0C0_pGAF_tF">tirer5Carte(parmi:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Tire 5 cartes au hasard parmi les cartes données.</p>
+
+<p>Si la liste de carte donnée en paramètre possède moins de 5 cartes, alors cette méthode émet une erreur fatale.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">tirer5Carte</span><span class="p">(</span><span class="n">parmi</span> <span class="nv">cartes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/Carte.html">Carte</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Protocols/Carte.html">Carte</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cartes</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Une liste de cartes parmi lesquelles les 5 cartes doivent être choisies</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>une liste de 5 cartes tirées au hasard parmi les cartes données</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7OnitamaAAP10estTermineSbyF"></a>
+                    <a name="//apple_ref/swift/Method/estTermine()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7OnitamaAAP10estTermineSbyF">estTermine()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indique si la partie est terminée.</p>
+
+<p>La partie est terminée si le pion maître d&#39;un joueur est mort ou si le pion maître d&#39;un joueur
+est arrivé sur la case temple de l&#39;autre joueur.
+La case temple du joueur1 se trouve en (2, 4) et la case temple du joueur2 se trouve en (2, 0).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">estTermine</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>true</code> si la partie est terminée, sinon <code>false</code></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7OnitamaAAP7plateauAA7Plateau_pvp"></a>
+                    <a name="//apple_ref/swift/Property/plateau" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7OnitamaAAP7plateauAA7Plateau_pvp">plateau</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cette propriété est le tableau sur lequel se déroule la partie.
+Cette propriété doit être initialisée lors de l&#39;initilisation de ce type.
+Le set n’est ici que pour satisfaire la mutabilité du plateau.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">plateau</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Plateau.html">Plateau</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-12-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Plateau Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/Plateau" class="dashAnchor"></a>
+    <a title="Plateau Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Plateau Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Carte.html">Carte</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Joueur.html">Joueur</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Onitama.html">Onitama</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Pion.html">Pion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Plateau.html">Plateau</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Plateau</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Plateau</span></code></pre>
+
+                </div>
+              </div>
+            <p>Ce protocol représente le plateau de jeu, c&#39;est à dire une grille de 5x5 cases. Sur chaque case de
+cette grille on peut ou pas trouver un pion.</p>
+
+<p>On désigne la case tout en haut à gauche comme (0, 0).
+On désigne la case tout en haut à droite comme (4, 0).
+On désigne la case tout en bas à gauche comme (0, 4).
+On désigne la case tout en bas à droite comme (4, 4).</p>
+
+<p>Les positions sont des couples (x, y) appartenant à [0, 4]*[0, 4].</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Onitama7PlateauP7joueur17joueur2xAA6Joueur_p_AaF_ptcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(joueur1:joueur2:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Onitama7PlateauP7joueur17joueur2xAA6Joueur_p_AaF_ptcfc">init(joueur1:joueur2:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Créer un plateau initialisé avec les pions placés sur leur case de départ.</p>
+
+<p>C&#39;est à dire que pour tout (x, y) appartenant à [0, 4]*[1, 3] on a :</p>
+<pre class="highlight swift"><code><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span>
+</code></pre>
+
+<p>Et pour tout x appartenant à {0, 1, 3, 4}:</p>
+<pre class="highlight swift"><code><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span> 
+<span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">&amp;&amp;</span>
+<span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">estMaitre</span> <span class="o">==</span> <span class="kc">false</span>
+</code></pre>
+
+<p>Et :</p>
+<pre class="highlight swift"><code><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span>
+<span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">&amp;&amp;</span>
+<span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">estMaitre</span> <span class="o">==</span> <span class="kc">true</span>
+</code></pre>
+
+<p>Et pour tout x appartenant à {0, 1, 3, 4}:</p>
+<pre class="highlight swift"><code><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span> 
+<span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span>
+<span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">estMaitre</span> <span class="o">==</span> <span class="kc">false</span>
+</code></pre>
+
+<p>Et :</p>
+<pre class="highlight swift"><code><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span>
+<span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">&amp;&amp;</span>
+<span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">estMaitre</span> <span class="o">==</span> <span class="kc">true</span>  
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">joueur1</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Joueur.html">Joueur</a></span><span class="p">,</span> <span class="nv">joueur2</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Joueur.html">Joueur</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>joueur1</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Un joueur tel que <code>joueur1.estJoueur1() == true</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>joueur2</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Un joueur tel que <code>joueur2.estJoueur1() == false</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Onitama7PlateauP8getPionA1x1yAA0D0_pSi_SitF"></a>
+                    <a name="//apple_ref/swift/Method/getPionA(x:y:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Onitama7PlateauP8getPionA1x1yAA0D0_pSi_SitF">getPionA(x:y:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indique quel pion se trouve à la position (x, y).</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n&#39;est pas le cas, la méthode émet une erreur fatale.
+
+</div>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    s&#39;il n&#39;y a pas de pion à la position (x, y) alors cette méthode émet une erreur fatale.
+
+</div>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    <p>s&#39;il y a un pion <code>p</code> à la position (x, y) et <code>p.enVie == false</code> alors cette méthode émet une erreur fatale.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/Pion.html">Pion</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>x</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>La coordonnée x du pion que l&#39;on souhaite récupérer</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>y</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>La coordonnée y du pion que l&#39;on souhaite récupérer</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>le pion <code>p</code> se trouvant à la position (x, y) sur le plateau tel que <code>p.enVie == true</code></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Onitama7PlateauP10caseOccupe1x1ySbSi_SitF"></a>
+                    <a name="//apple_ref/swift/Method/caseOccupe(x:y:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Onitama7PlateauP10caseOccupe1x1ySbSi_SitF">caseOccupe(x:y:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indique s&#39;il y a un pion à la position (x, y).</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    x appartient à [0 ; 4] et y appartient à [0 ; 4], si ce n&#39;est pas le cas, la méthode émet une erreur fatale.
+
+</div>
+
+<p>De plus :</p>
+<pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">=&gt;</span> <span class="k">self</span><span class="o">.</span><span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="n">renvoie</span> <span class="n">un</span> <span class="n">pion</span>
+<span class="k">self</span><span class="o">.</span><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">=&gt;</span> <span class="k">self</span><span class="o">.</span><span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="n">émet</span> <span class="n">une</span> <span class="n">erreur</span> <span class="n">fatale</span><span class="o">.</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>x</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>La coordonnée x de la case sur laquelle on veut savoir s&#39;il y a un pion</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>y</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>La coordonnée y de la case sur laquelle on veut savoir s&#39;il y a un pion</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>true</code> si un pion se situe à la position (x, y), sinon <code>false</code></p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Onitama7PlateauP10bougerPion4pion1x1yyAA0D0_pz_S2itF"></a>
+                    <a name="//apple_ref/swift/Method/bougerPion(pion:x:y:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Onitama7PlateauP10bougerPion4pion1x1yyAA0D0_pz_S2itF">bougerPion(pion:x:y:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Bouge le pion donné vers la position donnée.</p>
+
+<p>Lors de l&#39;appel: <code>self.bougerPion(pion: pion, x: x, y: y)</code></p>
+
+<ul>
+<li>Si le pion n&#39;est pas autorisé à bouger:</li>
+</ul>
+
+<p>C&#39;est à dire que la position donnée est hors du plateau : </p>
+<pre class="highlight swift"><code><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span>
+</code></pre>
+
+<p>ou que la case vers laquelle on veut bouger le pion est occupée et que le pion appartient au même joueur :</p>
+<pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">self</span><span class="o">.</span><span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">==</span> <span class="n">pion</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span>
+</code></pre>
+
+<p>ou que le pion est mort:</p>
+<pre class="highlight swift"><code><span class="n">pion</span><span class="o">.</span><span class="n">enVie</span> <span class="o">==</span> <span class="kc">false</span>
+</code></pre>
+
+<p>Alors cette méthode émet une erreur fatale.</p>
+
+<ul>
+<li>Si le pion est autorisé à bouger:</li>
+</ul>
+
+<p>C&#39;est à dire vers la position donnée est une case vide:</p>
+<pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span>
+</code></pre>
+
+<p>ou que la case est occupée par un pion adverse:</p>
+<pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">self</span><span class="o">.</span><span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">!=</span> <span class="n">pion</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span>
+</code></pre>
+
+<p>Alors en considérant :</p>
+<pre class="highlight swift"><code><span class="nf">let</span> <span class="p">(</span><span class="n">ancienX</span><span class="p">,</span> <span class="n">ancienY</span><span class="p">)</span> <span class="o">=</span> <span class="n">pion</span><span class="o">.</span><span class="n">position</span>
+</code></pre>
+
+<p>On a suite à l&#39;appel de <code>self.bougerPion(pion: pion, x: x, y: y)</code> :</p>
+<pre class="highlight swift"><code><span class="n">pion</span><span class="o">.</span><span class="n">position</span> <span class="o">==</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="k">self</span><span class="o">.</span><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">ancienX</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">ancienY</span><span class="p">)</span> <span class="o">==</span> <span class="kc">false</span>
+<span class="k">self</span><span class="o">.</span><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="kc">true</span>
+<span class="k">self</span><span class="o">.</span><span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="o">===</span> <span class="n">pion</span>
+<span class="k">self</span><span class="o">.</span><span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">==</span> <span class="n">pion</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span>
+</code></pre>
+
+<p>Et si la case était occupée par un pion <code>p</code> adverse :</p>
+<pre class="highlight swift"><code><span class="k">self</span><span class="o">.</span><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">self</span><span class="o">.</span><span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">!=</span> <span class="n">pion</span><span class="o">.</span><span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span>
+</code></pre>
+
+<p>Alors on a aussi, suite à l&#39;appel de <code>self.bougerPion(pion: pion, x: x, y: y)</code> :</p>
+<pre class="highlight swift"><code><span class="n">p</span><span class="o">.</span><span class="n">estVie</span> <span class="o">==</span> <span class="kc">false</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">bougerPion</span><span class="p">(</span><span class="nv">pion</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Protocols/Pion.html">Pion</a></span><span class="p">,</span> <span class="nv">x</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Onitama7PlateauP16mouvementsPermis3par11enUtilisantSaySi_SitGAA6Joueur_p_AA5Carte_ptF"></a>
+                    <a name="//apple_ref/swift/Method/mouvementsPermis(par:enUtilisant:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Onitama7PlateauP16mouvementsPermis3par11enUtilisantSaySi_SitGAA6Joueur_p_AA5Carte_ptF">mouvementsPermis(par:enUtilisant:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indiques quels mouvements sont permis par le joueur donné en utilisant la carte donnée.</p>
+
+<p>C&#39;est à dire que cette méthode vérifie pour chaque mouvement permis par la carte s&#39;il existe
+au moins un pion du joueur qui soit encore en vie et qui puisse se déplacer en utilisant ce mouvement.</p>
+
+<p>Un pion peut se déplacer selon un mouvement si se mouvement ne l&#39;emmène pas en dehors du plateau de jeu
+ou que le mouvement ne l&#39;emmène pas sur la case d&#39;un pion allié.</p>
+
+<p>Un mouvement est considéré emmenant en dehors du plateau si pour un pion <code>p</code> et un mouvement <code>m</code> :</p>
+<pre class="highlight swift"><code><span class="nf">let</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">pion</span><span class="o">.</span><span class="n">position</span>
+<span class="nf">let</span> <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span> <span class="o">=</span> <span class="n">m</span>
+<span class="mi">0</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">4</span>
+<span class="mi">0</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">dy</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">4</span>
+</code></pre>
+
+<p>Un mouvement est considéré emmenant sur la case d&#39;un pion allié si pour un pion <code>p</code> et un mouvement <code>m</code> :</p>
+<pre class="highlight swift"><code><span class="c1">// Le mouvement n'emmène pas en dehors du plateau ET</span>
+<span class="nf">let</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">=</span> <span class="n">pion</span><span class="o">.</span><span class="n">position</span>
+<span class="nf">let</span> <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span> <span class="o">=</span> <span class="n">m</span>
+<span class="k">self</span><span class="o">.</span><span class="nf">caseOccupe</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span> <span class="o">-</span> <span class="n">dy</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">self</span><span class="o">.</span><span class="nf">getPionA</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">y</span> <span class="o">-</span> <span class="n">dy</span><span class="p">)</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span> <span class="o">==</span> <span class="n">joueur</span><span class="o">.</span><span class="nf">estJoueur1</span><span class="p">()</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">mouvementsPermis</span><span class="p">(</span><span class="n">par</span> <span class="nv">joueur</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Joueur.html">Joueur</a></span><span class="p">,</span> <span class="n">enUtilisant</span> <span class="nv">carte</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Carte.html">Carte</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>joueur</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Le joueur qui veut utiliser la carte</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>carte</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>La carte que veut utiliser le joueur</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>une liste contenant les mouvements proposés par la carte qui sont réalisables par au moins un pion du joueur passé en paramètre</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7Onitama7PlateauP20mouvementsPermisPion3par11enUtilisantSaySi_SitGAA0E0_p_AA5Carte_ptF"></a>
+                    <a name="//apple_ref/swift/Method/mouvementsPermisPion(par:enUtilisant:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7Onitama7PlateauP20mouvementsPermisPion3par11enUtilisantSaySi_SitGAA0E0_p_AA5Carte_ptF">mouvementsPermisPion(par:enUtilisant:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indiques quels mouvement sont permis par le pion donné en utilisant la carte donnée.</p>
+
+<p>Pour savoir ce qu&#39;est un mouvement valide pour un pion, référez vous à la méthode <code>mouvementsPermis</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">mouvementsPermisPion</span><span class="p">(</span><span class="n">par</span> <span class="nv">pion</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Pion.html">Pion</a></span><span class="p">,</span> <span class="n">enUtilisant</span> <span class="nv">carte</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Carte.html">Carte</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Le pion pour lequel on veut récupérer les mouvements permis avec la carte donnée</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>carte</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>La carte avec laquelle on veut déplacer le pion</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>une liste de mouvements possibles pour le pion donné en utilisant la carte donnée</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-12-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
