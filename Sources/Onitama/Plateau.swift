@@ -74,8 +74,6 @@ public protocol Plateau {
 
 			self.caseOccupe(x: x, y: y) == true => self.getPionA(x: x, y: y) renvoie un pion
 			self.caseOccupe(x: x, y: y) == false => self.getPionA(x: x, y: y) émet une erreur fatale.
-		
-		Si `self.setPionA(x: x, y: y, pion: pion)` n'a jamais été appelé, alors `self.caseOccupe(x: x, y: y) == false`
 
 		- parameters:
 			- x: La coordonnée x de la case sur laquelle on veut savoir s'il y a un pion
@@ -125,6 +123,7 @@ public protocol Plateau {
 			pion.position == (x, y)
 			self.caseOccupe(x: ancienX, y: ancienY) == false
 			self.caseOccupe(x: x, y: y) == true
+			self.getPionA(x: x, y: y) === pion
 			self.getPionA(x: x, y: y).joueur.estJoueur1() == pion.joueur.estJoueur1()
 
 		Et si la case était occupée par un pion `p` adverse :
